@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE DeriveFunctor #-}
@@ -23,12 +24,18 @@ module Faker.Internal
   , resolveFields
   , genericResolver
   , genericResolver'
+  , (.:)
+  , (.:?)
   ) where
 
 import Config
 import Control.Monad.Catch
 import Control.Monad.IO.Class
 import Data.Char (toUpper)
+#if MIN_VERSION_aeson(2,0,0)
+import qualified Data.Aeson.Key as Aeson
+#endif
+import qualified Data.Aeson.Types as Aeson
 import qualified Data.HashMap.Strict as HM
 import Data.Monoid ((<>))
 import qualified Data.Text as T
@@ -197,7 +204,7 @@ genericResolver' :: (MonadIO m, MonadThrow m) => (FakerSettings -> Text -> m Tex
 genericResolver' resolverFn settings txt = genericResolver settings txt resolverFn
 
 -- resolveHash settings 3
--- "234"                                             
+-- "234"
 resolveHash :: FakerSettings -> Int -> Text
 resolveHash settings num = T.pack $ helper settings num mempty
     where
@@ -337,4 +344,18 @@ generateRegexData ::
 generateRegexData settings provider = do
   items <- provider settings
   pure $ generateRegex settings items
+
+(.:) :: (Aeson.FromJSON a) => Aeson.Object -> Text -> Aeson.Parser a
+#if MIN_VERSION_aeson(2,0,0)
+x .: k = x Aeson..: Aeson.fromText k
+#else
+x .: k = x Aeson..: k
+#endif
+
+(.:?) :: (Aeson.FromJSON a) => Aeson.Object -> Text -> Aeson.Parser (Maybe a)
+#if MIN_VERSION_aeson(2,0,0)
+x .:? k = x Aeson..:? Aeson.fromText k
+#else
+x .:? k = x Aeson..:? k
+#endif
 

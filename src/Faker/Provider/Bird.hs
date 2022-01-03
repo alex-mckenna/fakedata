@@ -9,7 +9,7 @@ import Data.Text (Text)
 import Data.Vector (Vector)
 import Control.Monad.IO.Class (MonadIO)
 import Data.Monoid ((<>))
-import Data.Yaml
+import Data.Yaml hiding ((.:), (.:?))
 import Faker
 import Faker.Internal
 import Faker.Provider.TH

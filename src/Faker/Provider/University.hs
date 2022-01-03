@@ -10,7 +10,7 @@ import Data.Map.Strict (Map)
 import Data.Monoid ((<>))
 import Data.Text (Text)
 import Data.Vector (Vector)
-import Data.Yaml
+import Data.Yaml hiding ((.:), (.:?))
 import Faker
 import Faker.Internal
 import Faker.Provider.Address (stateProvider, cityProvider, resolveAddressText, resolveAddressField)
