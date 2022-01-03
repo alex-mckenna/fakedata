@@ -12,7 +12,7 @@ import Data.Monoid ((<>))
 import Data.Text (Text)
 import Data.Vector (Vector)
 import qualified Data.Vector as V
-import Data.Yaml
+import Data.Yaml hiding ((.:), (.:?))
 import Faker
 import Faker.Internal
 import Faker.Provider.TH

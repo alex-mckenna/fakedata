@@ -13,7 +13,7 @@ import Data.Monoid ((<>))
 import Data.Text (Text, unpack)
 import qualified Data.Text as T
 import Data.Vector (Vector)
-import Data.Yaml
+import Data.Yaml hiding ((.:), (.:?))
 import Faker
 import Faker.Internal
 import Language.Haskell.TH

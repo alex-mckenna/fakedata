@@ -1,5 +1,9 @@
 # Changelog for fakedata
 
+## 1.0.2
+
+* Add support for aeson-2.x
+
 ## 1.0.1
 
 * Improve README with use cases

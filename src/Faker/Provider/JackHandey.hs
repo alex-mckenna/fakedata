@@ -8,7 +8,7 @@ import Control.Monad.Catch
 import Data.Text (Text)
 import Data.Vector (Vector)
 import Data.Monoid ((<>))
-import Data.Yaml
+import Data.Yaml hiding ((.:), (.:?))
 import Faker
 import Faker.Internal
 import Faker.Provider.TH
